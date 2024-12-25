@@ -1,0 +1,11 @@
+[
+    { "name": "most relevant"},
+    { "name": "newest"},
+    { "name": "top reviews"},
+    { "name": "popularity (DESC)"},
+    { "name": "popularity (ASC)"},
+    { "name": "price (DESC)"},
+    { "name": "price (ASC)"},
+    { "name": "alfhabet (DESC)"},
+    { "name": "alfhabet (ASC)"}
+]

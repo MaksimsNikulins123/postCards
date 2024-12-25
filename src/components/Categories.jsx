@@ -8,6 +8,9 @@ import React, { useState } from 'react';
 const categories = ['All', 'Retro', 'Social', 'Modern', 'Comics', 'New'];
 
 export const Categories = () => {
+  
+  console.log('Categories render')
+
   const [activeIndex, setActiveIndex] = useState(0);
 
   const onClickCategory = (i) => {

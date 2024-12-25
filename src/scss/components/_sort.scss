@@ -5,9 +5,11 @@
   &__label {
     display: flex;
     align-items: center;
+    width: 200px;
 
     svg {
       margin-right: 8px;
+      transition: transform 0.5s;
     }
 
     b {
@@ -20,11 +22,19 @@
       cursor: pointer;
     }
   }
+  &__label.active {
+    svg {
+      transform: rotate(180deg);
+      
+    }
+    
+  }
 
   &__popup {
     position: absolute;
     right: 0;
     margin-top: 15px;
+    width: 170px;
     background: #ffffff;
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.09);
     border-radius: 10px;

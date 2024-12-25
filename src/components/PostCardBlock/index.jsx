@@ -17,7 +17,7 @@ const typeNames = ['color', 'black & white'];
 //   rating: number;
 // };
 
-export const PizzaBlock = ({
+export const PostCardBlock = ({
   id,
   title,
   price,
@@ -46,22 +46,22 @@ export const PizzaBlock = ({
   //   dispatch(addItem(item));
   // };
 
-  console.log('Pizza block render')
+  console.log('PostCard block render')
 
   return (
-    <div className="pizza-block-wrapper">
-      <div className="pizza-block">
+    <div className="postCard-block-wrapper">
+      <div className="postCard-block">
         {/* <Link key={id} to={`/pizza/${id}`}> */}
-          <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
-          <h4 className="pizza-block__title">{title}</h4>
+          <img className="postCard-block__image" src={imageUrl} alt="PostCard" />
+          <h4 className="postCard-block__title">{title}</h4>
         {/* </Link> */}
-        <div className="pizza-block__selector">
+        <div className="postCard-block__selector">
           <ul>
             {types.map((typeId) => (
               <li
                 key={typeId}
                 onClick={() => setActiveType(typeId)}
-                className={activeType === typeId ? 'active' : ''}>
+                className={activeType === typeId || types.length === 1 ? 'active' : ''}>
                 {typeNames[typeId]}
               </li>
             ))}
@@ -72,13 +72,13 @@ export const PizzaBlock = ({
                 key={size}
                 onClick={() => setActiveSize(i)}
                 className={activeSize === i ? 'active' : ''}>
-                {size} см.
+                {size}
               </li>
             ))}
           </ul>
         </div>
-        <div className="pizza-block__bottom">
-          <div className="pizza-block__price">от {price} ₽</div>
+        <div className="postCard-block__bottom">
+          <div className="postCard-block__price">from {price}$</div>
           <button  className="button button--outline button--add">
             <svg
               width="12"
@@ -91,7 +91,7 @@ export const PizzaBlock = ({
                 fill="white"
               />
             </svg>
-            <span onClick={() => setCount(count + 1)}>Добавить</span>
+            <span onClick={() => setCount(count + 1)}>Add to cart</span>
             <i>{count}</i>
             {/* {addedCount > 0 && <i>{addedCount}</i>} */}
           </button>

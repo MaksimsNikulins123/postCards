@@ -26,10 +26,10 @@ export const Header = () => {
       <div className="container">
         {/* <Link to="/"> */}
           <div className="header__logo">
-            <img width="38" src={logoSvg} alt="Pizza logo" />
+            <img width="38" src={logoSvg} alt="PostCards logo" />
             <div>
-              <h1>Vintage Postcards</h1>
-              <p>Great little postcards that I sent to some of my friends.</p>
+              <h1>Handmade Postcards</h1>
+              <p>Great little postcards for everyone why you love.</p>
             </div>
           </div>
         {/* </Link> */}
