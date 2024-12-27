@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // import { useDispatch } from 'react-redux';
 // import { setSort } from '../redux/filter/slice';
 // import { Sort as SortType, SortPropertyEnum } from '../redux/filter/types';
@@ -15,15 +15,28 @@ import React, { useState } from 'react';
 // type SortPopupProps = {
 //   value: SortType;
 // };
-import sortList from '../assets/sortList.json';
+// import sortList from '../assets/sortList.json';
 
 export const Sort = () => {
   // const dispatch = useDispatch();
   // const sortRef = React.useRef<HTMLDivElement>(null);
-
+  const [sortList, setSortList] = useState([]);
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(0);
-  const [sortBy, setSortBy] = useState(sortList[selected]);
+  const [sortBy, setSortBy] = useState('');
+
+   
+  
+    useEffect(() => {
+      fetch('https://676c71c20e299dd2ddfcd273.mockapi.io/sortList')
+      .then((res) => {
+        return res.json()
+      })
+      .then((json) => { 
+        setSortList(json)
+        setSortBy(json[selected])
+      })
+    },[])
 
   const onClickListItem = (obj, i) => {
     setSortBy(obj)

@@ -79,7 +79,7 @@ export const PostCardBlock = ({
         </div>
         <div className="postCard-block__bottom">
           <div className="postCard-block__price">from {price}$</div>
-          <button  className="button button--outline button--add">
+          <button  className="button button--outline button--add" onClick={() => setCount(count + 1)}>
             <svg
               width="12"
               height="12"
@@ -91,7 +91,7 @@ export const PostCardBlock = ({
                 fill="white"
               />
             </svg>
-            <span onClick={() => setCount(count + 1)}>Add to cart</span>
+            <span >Add to cart</span>
             <i>{count}</i>
             {/* {addedCount > 0 && <i>{addedCount}</i>} */}
           </button>

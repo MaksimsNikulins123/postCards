@@ -1,51 +1,22 @@
-// import logo from './logo.svg';
+import { Routes, Route } from "react-router";
 
-import MainLayout from './layouts/MainLayout';
-import Home from './pages/Home';
-import './scss/app.scss';
+import MainLayout from "./layouts/MainLayout";
+import Home from "./pages/Home";
+import NotFound from "./pages/NotFound";
 
-import { Fragment } from 'react';
+import "./scss/app.scss";
+
 
 function App() {
-  console.log('App render')
+  console.log("App render");
+
   return (
-    <Fragment>
-      <MainLayout />
-      <Home />
-      {/* Home
-      Cart
-      FullPizza
-      NotFound */}
-    </Fragment>
-    // <Routes>
-    //   <Route path="/" element={<MainLayout />}>
-    //     <Route path="" element={<Home />} />
-    //     <Route
-    //       path="cart"
-    //       element={
-    //         <Suspense fallback={<div>Идёт загрузка корзины...</div>}>
-    //           <Cart />
-    //         </Suspense>
-    //       }
-    //     />
-    //     <Route
-    //       path="pizza/:id"
-    //       element={
-    //         <Suspense fallback={<div>Идёт загрузка...</div>}>
-    //           <FullPizza />
-    //         </Suspense>
-    //       }
-    //     />
-    //     <Route
-    //       path="*"
-    //       element={
-    //         <Suspense fallback={<div>Идёт загрузка...</div>}>
-    //           <NotFound />
-    //         </Suspense>
-    //       }
-    //     />
-    //   </Route>
-    // </Routes>
+    <Routes>
+      <Route path="/" element={<MainLayout />}>
+        <Route index element={<Home />} />
+        <Route path="*" element={<NotFound />} />
+      </Route>
+    </Routes>
   );
 }
 

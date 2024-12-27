@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Categories } from '../components/Categories';
 import { PostCardBlock } from '../components/PostCardBlock';
 // import qs from 'qs';
@@ -16,10 +16,31 @@ import { PostCardBlock } from '../components/PostCardBlock';
 // import { fetchPizzas } from '../redux/pizza/asyncActions';
 // import { SearchPizzaParams } from '../redux/pizza/types';
 
-import items from '../assets/postcards.json';
+// import items from '../assets/postcards.json';
 import { Sort } from '../components/Sort';
+import { Skeleton } from '../components/PostCardBlock/Skeleton';
 
 const Home = () => {
+
+  const [loading, isLoading] = useState(true)
+  const [items, seItems] = useState([])
+
+  const maxItmesPerPage = 6
+
+
+  useEffect(() => {
+    fetch('https://676c71c20e299dd2ddfcd273.mockapi.io/PostCards')
+    .then((res) => {
+      return res.json()
+    })
+    .then((json) => { 
+      seItems(json)
+    })
+    .finally(() => {
+      isLoading(false)
+    })
+  },[])
+
   // const navigate = useNavigate();
   // const dispatch = useAppDispatch();
   // const isMounted = React.useRef(false);
@@ -103,7 +124,7 @@ const Home = () => {
   
 
   const postcards = items.map((obj) => <PostCardBlock key={obj.id} {...obj} />);
-  // const skeletons = [...new Array(6)].map((_, index) => <Skeleton key={index} />);
+  const skeletons = [...new Array(maxItmesPerPage)].map((_, index) => <Skeleton key={index} />);
 
   console.log('Home render')
   return (
@@ -113,9 +134,8 @@ const Home = () => {
         <Sort />
       </div>
       <h2 className="content__title">All cards</h2>
-      <div className='content__items'>
-        {postcards}
-      </div>
+      <div className="content__items">{loading ? skeletons : postcards}</div>
+     
     
       {/* {status === 'error' ? (
         <div className="content__error-info">
