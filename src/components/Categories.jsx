@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 // type CategoriesProps = {
 //   value: number;
@@ -7,21 +7,21 @@ import React, { useState } from 'react';
 
 const categories = ['All', 'Retro', 'Social', 'Modern', 'Comics', 'New'];
 
-export const Categories = () => {
+export const Categories = ({category, onChangeCategory}) => {
   
   console.log('Categories render')
 
-  const [activeIndex, setActiveIndex] = useState(0);
+  // const [activeIndex, setActiveIndex] = useState(0);
 
-  const onClickCategory = (i) => {
-    setActiveIndex(i)
-  }
+  // const onClickCategory = (i) => {
+  //   category(i)
+  // }
 
   return (
     <div className="categories">
       <ul>
         {categories.map((categoryName, i) => (
-          <li key={i} onClick={() => onClickCategory(i)} className={activeIndex === i ? 'active' : ''}>
+          <li key={i} onClick={() => onChangeCategory(i)} className={category === i ? 'active' : ''}>
             {categoryName}
           </li>
         ))}

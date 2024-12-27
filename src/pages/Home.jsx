@@ -23,7 +23,10 @@ import { Skeleton } from '../components/PostCardBlock/Skeleton';
 const Home = () => {
 
   const [loading, isLoading] = useState(true)
-  const [items, seItems] = useState([])
+  const [items, setItems] = useState([])
+  const [sortList, setSortList] = useState([]);
+  const [category, setCategory] = useState(0);
+  const [sortBy, setSortBy] = useState('');
 
   const maxItmesPerPage = 6
 
@@ -34,10 +37,21 @@ const Home = () => {
       return res.json()
     })
     .then((json) => { 
-      seItems(json)
+      setItems(json)
     })
     .finally(() => {
       isLoading(false)
+    })
+  },[])
+
+  useEffect(() => {
+    fetch('https://676c71c20e299dd2ddfcd273.mockapi.io/sortList')
+    .then((res) => {
+      return res.json()
+    })
+    .then((json) => { 
+      setSortList(json)
+      setSortBy(json[0])
     })
   },[])
 
@@ -130,8 +144,8 @@ const Home = () => {
   return (
     <div className="container">
       <div className="content__top">
-        <Categories />
-        <Sort />
+        <Categories category={category} onChangeCategory={(i) => setCategory(i)}/>
+        <Sort sortList={sortList} sortBy={sortBy} onChangeSortBy={(value) => setSortBy(value)}/>
       </div>
       <h2 className="content__title">All cards</h2>
       <div className="content__items">{loading ? skeletons : postcards}</div>

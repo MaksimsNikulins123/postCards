@@ -1,27 +1,27 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+// import { useDispatch, useSelector } from 'react-redux';
 
-import { CartItem, CartEmpty } from '../components';
+// import { CartItem, CartEmpty } from '../components';
 
-import { selectCart } from '../redux/cart/selectors';
-import { clearItems } from '../redux/cart/slice';
+// import { selectCart } from '../redux/cart/selectors';
+// import { clearItems } from '../redux/cart/slice';
 
 const Cart = () => {
-  const dispatch = useDispatch();
-  const { totalPrice, items } = useSelector(selectCart);
+  // const dispatch = useDispatch();
+  // const { totalPrice, items } = useSelector(selectCart);
 
-  const totalCount = items.reduce((sum, item) => sum + item.count, 0);
+  // const totalCount = items.reduce((sum, item) => sum + item.count, 0);
 
-  const onClickClear = () => {
-    if (window.confirm('Очистить корзину?')) {
-      dispatch(clearItems());
-    }
-  };
+  // const onClickClear = () => {
+  //   if (window.confirm('Очистить корзину?')) {
+  //     dispatch(clearItems());
+  //   }
+  // };
 
-  if (!totalPrice) {
-    return <CartEmpty />;
-  }
+  // if (!totalPrice) {
+  //   return <CartEmpty />;
+  // }
 
   return (
     <div className="container container--cart">
@@ -55,7 +55,7 @@ const Cart = () => {
             </svg>
             Корзина
           </h2>
-          <div onClick={onClickClear} className="cart__clear">
+          <div  className="cart__clear">
             <svg
               width="20"
               height="20"
@@ -92,19 +92,19 @@ const Cart = () => {
           </div>
         </div>
         <div className="content__items">
-          {items.map((item) => (
+          {/* {items.map((item) => (
             <CartItem key={item.id} {...item} />
-          ))}
+          ))} */}
         </div>
         <div className="cart__bottom">
           <div className="cart__bottom-details">
             <span>
               {' '}
-              Всего пицц: <b>{totalCount} шт.</b>{' '}
+              Всего пицц: <b>totalCount шт.</b>{' '}
             </span>
             <span>
               {' '}
-              Сумма заказа: <b>{totalPrice} ₽</b>{' '}
+              Сумма заказа: <b>totalPrice ₽</b>{' '}
             </span>
           </div>
           <div className="cart__bottom-buttons">

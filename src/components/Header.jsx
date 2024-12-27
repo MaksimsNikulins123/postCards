@@ -37,7 +37,7 @@ export const Header = () => {
         <div className="header__cart">
           {/* {location.pathname !== '/cart' && ( */}
           <Link to="/cart" className="button button--cart">
-            <span>totalPrice $</span>
+            <span>100 $</span>
             <div className="button__delimiter"></div>
             <svg
               width="18"
@@ -68,7 +68,7 @@ export const Header = () => {
                 strokeLinejoin="round"
               />
             </svg>
-            <span>totalCount</span>
+            <span>21</span>
           </Link>
           {/* )} */}
         </div>
