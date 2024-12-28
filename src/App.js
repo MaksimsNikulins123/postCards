@@ -9,7 +9,7 @@ import Cart from "./pages/Cart";
 
 
 function App() {
-  console.log("App render");
+  // console.log("App render");
 
   return (
     <Routes>
