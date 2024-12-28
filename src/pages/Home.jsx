@@ -26,13 +26,22 @@ const Home = () => {
   const [items, setItems] = useState([])
   const [sortList, setSortList] = useState([]);
   const [category, setCategory] = useState(0);
-  const [sortBy, setSortBy] = useState('');
+  const [sortBy, setSortBy] = useState(
+    {"name": "popularity (DESC)",
+    "sortBy": "rating",
+    "order": "desc"}
+  );
 
   const maxItmesPerPage = 6
 
 
   useEffect(() => {
-    fetch('https://676c71c20e299dd2ddfcd273.mockapi.io/PostCards')
+    const url = new URL('https://676c71c20e299dd2ddfcd273.mockapi.io/PostCards')
+    category > 0 ? url.searchParams.append('category', category) : url.searchParams.delete('category')
+    fetch(url, {
+      method: 'GET',
+      headers: {'content-type':'application/json'},
+    })
     .then((res) => {
       return res.json()
     })
@@ -42,18 +51,57 @@ const Home = () => {
     .finally(() => {
       isLoading(false)
     })
-  },[])
+  },[category])
 
   useEffect(() => {
-    fetch('https://676c71c20e299dd2ddfcd273.mockapi.io/sortList')
+    const url = new URL('https://676c71c20e299dd2ddfcd273.mockapi.io/PostCards')
+     url.searchParams.append('sortBy', sortBy.sortBy);
+    url.searchParams.append('order', sortBy.order)
+    fetch(url, {
+      method: 'GET',
+      headers: {'content-type':'application/json'},
+    })
+    .then((res) => {
+      return res.json()
+    })
+    .then((json) => { 
+      setItems(json)
+    })
+    .finally(() => {
+      isLoading(false)
+    })
+  },[sortBy])
+
+  useEffect(() => {
+    const url = new URL('https://676c71c20e299dd2ddfcd273.mockapi.io/sortList');
+    // url.searchParams.append('sortBy', sortBy.sortBy);
+    // url.searchParams.append('order', sortBy.order)
+    fetch(url, {
+      method: 'GET',
+      headers: {'content-type':'application/json'},
+    })
     .then((res) => {
       return res.json()
     })
     .then((json) => { 
       setSortList(json)
-      setSortBy(json[0])
+      // setSortBy(json[0])
     })
   },[])
+
+  console.log(category)
+  // useEffect(() => {
+  //   fetch(`https://676c71c20e299dd2ddfcd273.mockapi.io/PostCards?sortBy=${category}`)
+  //   .then((res) => {
+  //     return res.json()
+  //   })
+  //   .then((json) => { 
+  //     setItems(json)
+  //   })
+  //   .finally(() => {
+  //     isLoading(false)
+  //   })
+  // },[category])
 
   // const navigate = useNavigate();
   // const dispatch = useAppDispatch();

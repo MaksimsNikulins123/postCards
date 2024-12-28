@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router";
 // import { useSelector } from 'react-redux';
 
-import logoSvg from "../assets/img/pizza-logo.svg";
+import logoSvg from "../assets/img/postCards-logo.svg";
 // import { Search } from '.';
 // import { selectCart } from '../redux/cart/selectors';
 
