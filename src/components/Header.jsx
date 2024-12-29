@@ -3,10 +3,11 @@ import { Link } from "react-router";
 // import { useSelector } from 'react-redux';
 
 import logoSvg from "../assets/img/postCards-logo.svg";
+import { Search } from "./Search";
 // import { Search } from '.';
 // import { selectCart } from '../redux/cart/selectors';
 
-export const Header = () => {
+export const Header = ({searchValue, setSearchValue}) => {
   // const { items, totalPrice } = useSelector(selectCart);
   // const location = useLocation();
   // const isMounted = React.useRef(false);
@@ -33,6 +34,7 @@ export const Header = () => {
             </div>
           </div>
         </Link>
+        <Search searchValue={searchValue} setSearchValue={setSearchValue}/>
         {/* {location.pathname !== '/cart' && <Search />} */}
         <div className="header__cart">
           {/* {location.pathname !== '/cart' && ( */}

@@ -20,7 +20,7 @@ import { PostCardBlock } from '../components/PostCardBlock';
 import { Sort } from '../components/Sort';
 import { Skeleton } from '../components/PostCardBlock/Skeleton';
 
-const Home = () => {
+const Home = ({searchValue}) => {
 
   const [loading, isLoading] = useState(true)
   const [items, setItems] = useState([])
@@ -185,7 +185,7 @@ const Home = () => {
 
   
 
-  const postcards = items.map((obj) => <PostCardBlock key={obj.id} {...obj} />);
+  const postcards = items.filter(obj => obj.title.toLowerCase().includes(searchValue.toLowerCase())).map((obj) => <PostCardBlock key={obj.id} {...obj} />);
   const skeletons = [...new Array(maxItmesPerPage)].map((_, index) => <Skeleton key={index} />);
 
   console.log('Home render')
