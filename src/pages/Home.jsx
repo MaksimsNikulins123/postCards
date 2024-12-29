@@ -19,6 +19,7 @@ import { PostCardBlock } from '../components/PostCardBlock';
 // import items from '../assets/postcards.json';
 import { Sort } from '../components/Sort';
 import { Skeleton } from '../components/PostCardBlock/Skeleton';
+import { Pagination } from '../components/Pagination';
 
 const Home = ({searchValue}) => {
 
@@ -26,11 +27,9 @@ const Home = ({searchValue}) => {
   const [items, setItems] = useState([])
   const [sortList, setSortList] = useState([]);
   const [category, setCategory] = useState(0);
-  const [sortBy, setSortBy] = useState(
-    {"name": "popularity (DESC)",
-    "sortBy": "rating",
-    "order": "desc"}
-  );
+  const [sortBy, setSortBy] = useState({"name": "popularity (DESC)", "sortBy": "rating", "order": "desc"});
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pagesCount, setPagesCount] = useState(1)
 
   const maxItmesPerPage = 6
 
@@ -38,7 +37,7 @@ const Home = ({searchValue}) => {
   useEffect(() => {
     const url = new URL('https://676c71c20e299dd2ddfcd273.mockapi.io/PostCards')
     category > 0 ? url.searchParams.append('category', category) : url.searchParams.delete('category')
-    fetch(url, {
+     fetch(url, {
       method: 'GET',
       headers: {'content-type':'application/json'},
     })
@@ -47,6 +46,7 @@ const Home = ({searchValue}) => {
     })
     .then((json) => { 
       setItems(json)
+      setPagesCount(Math.ceil(json.length / maxItmesPerPage))
     })
     .finally(() => {
       isLoading(false)
@@ -89,7 +89,7 @@ const Home = ({searchValue}) => {
     })
   },[])
 
-  console.log(category)
+  // console.log(category)
   // useEffect(() => {
   //   fetch(`https://676c71c20e299dd2ddfcd273.mockapi.io/PostCards?sortBy=${category}`)
   //   .then((res) => {
@@ -186,9 +186,12 @@ const Home = ({searchValue}) => {
   
 
   const postcards = items.filter(obj => obj.title.toLowerCase().includes(searchValue.toLowerCase())).map((obj) => <PostCardBlock key={obj.id} {...obj} />);
+  const postCardsPerPage = postcards.slice(maxItmesPerPage * (currentPage - 1), maxItmesPerPage * currentPage)
   const skeletons = [...new Array(maxItmesPerPage)].map((_, index) => <Skeleton key={index} />);
 
-  console.log('Home render')
+  console.log(postcards)
+  console.log(postCardsPerPage)
+  // console.log('Home render')
   return (
     <div className="container">
       <div className="content__top">
@@ -196,7 +199,7 @@ const Home = ({searchValue}) => {
         <Sort sortList={sortList} sortBy={sortBy} onChangeSortBy={(value) => setSortBy(value)}/>
       </div>
       <h2 className="content__title">All cards</h2>
-      <div className="content__items">{loading ? skeletons : postcards}</div>
+      <div className="content__items">{loading ? skeletons : postCardsPerPage}</div>
      
     
       {/* {status === 'error' ? (
@@ -208,7 +211,7 @@ const Home = ({searchValue}) => {
         <div className="content__items">{status === 'loading' ? skeletons : pizzas}</div>
       )} */}
 
-      {/* <Pagination currentPage={currentPage} onChangePage={onChangePage} /> */}
+      <Pagination pagesCount={pagesCount} currentPage={currentPage} setCurrentPage={setCurrentPage} />
     </div>
   );
 };

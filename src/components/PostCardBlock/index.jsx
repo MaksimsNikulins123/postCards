@@ -46,7 +46,7 @@ export const PostCardBlock = ({
   //   dispatch(addItem(item));
   // };
 
-  console.log('PostCard block render')
+  // console.log('PostCard block render')
 
   return (
     <div className="postCard-block-wrapper">
