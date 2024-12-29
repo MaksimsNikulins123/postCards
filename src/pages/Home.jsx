@@ -189,8 +189,8 @@ const Home = ({searchValue}) => {
   const postCardsPerPage = postcards.slice(maxItmesPerPage * (currentPage - 1), maxItmesPerPage * currentPage)
   const skeletons = [...new Array(maxItmesPerPage)].map((_, index) => <Skeleton key={index} />);
 
-  console.log(postcards)
-  console.log(postCardsPerPage)
+  // console.log(postcards)
+  // console.log(postCardsPerPage)
   // console.log('Home render')
   return (
     <div className="container">

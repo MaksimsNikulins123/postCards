@@ -3,6 +3,7 @@
   justify-content: center;
   align-items: center;
 }
+
 .root {
   li {
     display: inline-block;
@@ -23,6 +24,8 @@
         background-color: #fe5f1e;
         color: #fff;
       }
+     
+     
     }
   }
 
@@ -31,7 +34,13 @@
       a {
         background-color: #fe5f1e;
         color: #fff;
+        
       }
+     
+    }
+    .active{
+      background-color: #fe5f1e;
+      color: #fff;
     }
   }
 }
