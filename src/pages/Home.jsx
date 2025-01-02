@@ -20,20 +20,25 @@ import { PostCardBlock } from '../components/PostCardBlock';
 import { Sort } from '../components/Sort';
 import { Skeleton } from '../components/PostCardBlock/Skeleton';
 import { Pagination } from '../components/Pagination';
+import { SearchContext } from '../App';
 
-const Home = ({searchValue}) => {
+const Home = () => {
 
   const [loading, isLoading] = useState(true)
   const [items, setItems] = useState([])
   const [sortList, setSortList] = useState([]);
   const [category, setCategory] = useState(0);
-  const [sortBy, setSortBy] = useState({"name": "popularity (DESC)", "sortBy": "rating", "order": "desc"});
+  const [sortBy, setSortBy] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [pagesCount, setPagesCount] = useState(1)
 
   const maxItmesPerPage = 6
 
+  const {searchValue} = React.useContext(SearchContext)
+  
+  
 
+  
   useEffect(() => {
     const url = new URL('https://676c71c20e299dd2ddfcd273.mockapi.io/PostCards')
     category > 0 ? url.searchParams.append('category', category) : url.searchParams.delete('category')
@@ -55,7 +60,7 @@ const Home = ({searchValue}) => {
 
   useEffect(() => {
     const url = new URL('https://676c71c20e299dd2ddfcd273.mockapi.io/PostCards')
-     url.searchParams.append('sortBy', sortBy.sortBy);
+    url.searchParams.append('sortBy', sortBy.sortBy);
     url.searchParams.append('order', sortBy.order)
     fetch(url, {
       method: 'GET',
@@ -85,7 +90,7 @@ const Home = ({searchValue}) => {
     })
     .then((json) => { 
       setSortList(json)
-      // setSortBy(json[0])
+      setSortBy(json[0])
     })
   },[])
 
@@ -189,9 +194,9 @@ const Home = ({searchValue}) => {
   const postCardsPerPage = postcards.slice(maxItmesPerPage * (currentPage - 1), maxItmesPerPage * currentPage)
   const skeletons = [...new Array(maxItmesPerPage)].map((_, index) => <Skeleton key={index} />);
 
-  // console.log(postcards)
-  // console.log(postCardsPerPage)
-  // console.log('Home render')
+  
+  console.log('Home render')
+
   return (
     <div className="container">
       <div className="content__top">

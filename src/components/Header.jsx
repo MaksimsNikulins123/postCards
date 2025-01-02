@@ -4,10 +4,17 @@ import { Link } from "react-router";
 
 import logoSvg from "../assets/img/postCards-logo.svg";
 import { Search } from "./Search";
+
+import { ItemAddedCountContext } from "../App";
 // import { Search } from '.';
 // import { selectCart } from '../redux/cart/selectors';
 
-export const Header = ({searchValue, setSearchValue}) => {
+export const Header = () => {
+
+  // const [itemAdded, setItemAdded] = useState('')
+
+  const {itemAddedCount} = React.useContext(ItemAddedCountContext)
+  console.log(itemAddedCount)
   // const { items, totalPrice } = useSelector(selectCart);
   // const location = useLocation();
   // const isMounted = React.useRef(false);
@@ -21,7 +28,7 @@ export const Header = ({searchValue, setSearchValue}) => {
   //   }
   //   isMounted.current = true;
   // }, [items]);
-
+console.log('Header render')
   return (
     <div className="header">
       <div className="container">
@@ -34,7 +41,7 @@ export const Header = ({searchValue, setSearchValue}) => {
             </div>
           </div>
         </Link>
-        <Search searchValue={searchValue} setSearchValue={setSearchValue}/>
+        <Search />
         {/* {location.pathname !== '/cart' && <Search />} */}
         <div className="header__cart">
           {/* {location.pathname !== '/cart' && ( */}
@@ -70,7 +77,8 @@ export const Header = ({searchValue, setSearchValue}) => {
                 strokeLinejoin="round"
               />
             </svg>
-            <span>21</span>
+            <span>{itemAddedCount > 0 ? itemAddedCount : ''} </span>
+            {/* <span>{itemAddedCount} </span> */}
           </Link>
           {/* )} */}
         </div>

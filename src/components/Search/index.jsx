@@ -2,10 +2,15 @@ import React from 'react';
 // import { useDispatch } from 'react-redux';
 // import debounce from 'lodash.debounce';
 
+import { SearchContext } from '../../App';
+
 import styles from './Search.module.scss';
+
 // import { setSearchValue } from '../../redux/filter/slice';
 
-export const Search = ({searchValue, setSearchValue}) => {
+export const Search = () => {
+
+  const {searchValue, setSearchValue} = React.useContext(SearchContext)
   // const dispatch = useDispatch();
   // const [value, setValue] = React.useState('');
   // const inputRef = React.useRef(null);
@@ -27,6 +32,7 @@ export const Search = ({searchValue, setSearchValue}) => {
   //   setValue(event.target.value);
   //   // updateSearchValue(event.target.value);
   // };
+  console.log('Search render')
 
   return (
     <div className={styles.root}>
@@ -68,7 +74,7 @@ export const Search = ({searchValue, setSearchValue}) => {
         value={searchValue}
         onChange={(e)=> setSearchValue(e.target.value)}
         className={styles.input}
-        placeholder="Поиск пиццы..."
+        placeholder="Search postcards..."
       />
       {searchValue && (
         <svg

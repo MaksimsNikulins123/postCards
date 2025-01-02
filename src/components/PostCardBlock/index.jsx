@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { ItemAddedCountContext } from '../../App';
 // import { Link } from 'react-router-dom';
 // import { useDispatch, useSelector } from 'react-redux';
 // import { selectCartItemById } from '../../redux/cart/selectors';
@@ -31,6 +32,13 @@ export const PostCardBlock = ({
   const [activeType, setActiveType] = React.useState(0);
   const [activeSize, setActiveSize] = React.useState(0);
 
+  const {itemAddedCount, setItemAddedCount} = React.useContext(ItemAddedCountContext)
+  
+const addItemToCart = (postCardId) => {
+  console.log(postCardId)
+  setCount(count + 1)
+  setItemAddedCount(itemAddedCount + 1)
+}
   // const addedCount = cartItem ? cartItem.count : 0;
 
   // const onClickAdd = () => {
@@ -79,7 +87,7 @@ export const PostCardBlock = ({
         </div>
         <div className="postCard-block__bottom">
           <div className="postCard-block__price">from {price}$</div>
-          <button  className="button button--outline button--add" onClick={() => setCount(count + 1)}>
+          <button  className="button button--outline button--add" onClick={() => addItemToCart(id)}>
             <svg
               width="12"
               height="12"
