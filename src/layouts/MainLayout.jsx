@@ -5,7 +5,7 @@ import { Header } from '../components/Header';
 
 const MainLayout = () => {
 
-  console.log('Main layout render')
+  // console.log('Main layout render')
   return (
     <div className="wrapper">
         <Header />

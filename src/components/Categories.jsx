@@ -9,7 +9,7 @@ const categories = ['All', 'Retro', 'Social', 'Modern', 'Comics', 'New'];
 
 export const Categories = ({category, onChangeCategory}) => {
   
-  console.log('Categories render')
+  // console.log('Categories render')
 
   // const [activeIndex, setActiveIndex] = useState(0);
 

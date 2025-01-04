@@ -1,24 +1,21 @@
 import React from 'react';
-// import { useDispatch } from 'react-redux';
 // import debounce from 'lodash.debounce';
-
-import { SearchContext } from '../../App';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSearchValue } from '../../redux/slices/searchSlice';
 
 import styles from './Search.module.scss';
 
-// import { setSearchValue } from '../../redux/filter/slice';
 
 export const Search = () => {
 
-  const {searchValue, setSearchValue} = React.useContext(SearchContext)
-  // const dispatch = useDispatch();
+  const searchValue = useSelector((state) => state.search.searchValue)
+  const dispatch = useDispatch();
   // const [value, setValue] = React.useState('');
-  // const inputRef = React.useRef(null);
+  const inputRef = React.useRef(null);
 
   const onClickClear = () => {
-    // dispatch(setSearchValue(''));
-    setSearchValue('');
-    // inputRef.current?.focus();
+    dispatch(setSearchValue(''));
+    inputRef.current.focus();
   };
 
   // const updateSearchValue = React.useCallback(
@@ -32,7 +29,7 @@ export const Search = () => {
   //   setValue(event.target.value);
   //   // updateSearchValue(event.target.value);
   // };
-  console.log('Search render')
+  // console.log('Search render')
 
   return (
     <div className={styles.root}>
@@ -70,9 +67,9 @@ export const Search = () => {
         />
       </svg>
       <input
-        // ref={inputRef}
+        ref={inputRef}
         value={searchValue}
-        onChange={(e)=> setSearchValue(e.target.value)}
+        onChange={(e) =>  dispatch(setSearchValue(e.target.value))}
         className={styles.input}
         placeholder="Search postcards..."
       />

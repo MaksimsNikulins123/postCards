@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { ItemAddedCountContext } from '../../App';
+import React, { useState} from 'react';
+// import { ItemAddedCountContext } from '../../App';
 // import { Link } from 'react-router-dom';
-// import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setAddedItemsToCartCount } from '../../redux/slices/addItemToCartSlice';
 // import { selectCartItemById } from '../../redux/cart/selectors';
 // import { CartItem } from '../../redux/cart/types';
 // import { addItem } from '../../redux/cart/slice';
@@ -27,17 +28,17 @@ export const PostCardBlock = ({
   types,
 }) => {
   const [count, setCount] = useState(0)
-  // const dispatch = useDispatch();
-  // const cartItem = useSelector(selectCartItemById(id));
+  const dispatch = useDispatch();
+  const addedCount = useSelector((state) => state.addItemToCart.count);
   const [activeType, setActiveType] = React.useState(0);
   const [activeSize, setActiveSize] = React.useState(0);
 
-  const {itemAddedCount, setItemAddedCount} = React.useContext(ItemAddedCountContext)
+  // const {itemAddedCount, setItemAddedCount} = React.useContext(ItemAddedCountContext)
   
 const addItemToCart = (postCardId) => {
-  console.log(postCardId)
+  // console.log(postCardId)
   setCount(count + 1)
-  setItemAddedCount(itemAddedCount + 1)
+  dispatch(setAddedItemsToCartCount(addedCount + 1))
 }
   // const addedCount = cartItem ? cartItem.count : 0;
 

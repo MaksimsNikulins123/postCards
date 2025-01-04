@@ -1,20 +1,22 @@
 import React from "react";
 import { Link } from "react-router";
-// import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import logoSvg from "../assets/img/postCards-logo.svg";
 import { Search } from "./Search";
 
-import { ItemAddedCountContext } from "../App";
+// import { ItemAddedCountContext } from "../App";
 // import { Search } from '.';
 // import { selectCart } from '../redux/cart/selectors';
 
 export const Header = () => {
 
+  const addedItemToCart = useSelector((state) => state.addItemToCart.count)
+
   // const [itemAdded, setItemAdded] = useState('')
 
-  const {itemAddedCount} = React.useContext(ItemAddedCountContext)
-  console.log(itemAddedCount)
+  // const {itemAddedCount} = React.useContext(ItemAddedCountContext)
+  // console.log(itemAddedCount)
   // const { items, totalPrice } = useSelector(selectCart);
   // const location = useLocation();
   // const isMounted = React.useRef(false);
@@ -28,7 +30,7 @@ export const Header = () => {
   //   }
   //   isMounted.current = true;
   // }, [items]);
-console.log('Header render')
+// console.log('Header render')
   return (
     <div className="header">
       <div className="container">
@@ -77,7 +79,7 @@ console.log('Header render')
                 strokeLinejoin="round"
               />
             </svg>
-            <span>{itemAddedCount > 0 ? itemAddedCount : ''} </span>
+            <span>{addedItemToCart > 0 ? addedItemToCart : ''} </span>
             {/* <span>{itemAddedCount} </span> */}
           </Link>
           {/* )} */}

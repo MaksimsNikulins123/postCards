@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { Categories } from '../components/Categories';
-import { PostCardBlock } from '../components/PostCardBlock';
+
 // import qs from 'qs';
-// import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCategoryId } from '../redux/slices/filterByCategorySlice';
+import { setSortByValue } from '../redux/slices/sortByValueSlice';
 // import { useNavigate } from 'react-router-dom';
 
-// import { Categories, Sort, PizzaBlock, Skeleton, Pagination } from '../components';
+
 
 // import { sortList } from '../components/Sort';
 
 // import { useAppDispatch } from '../redux/store';
 // import { selectFilter } from '../redux/filter/selectors';
 // import { selectPizzaData } from '../redux/pizza/selectors';
-// import { setCategoryId, setCurrentPage, setFilters } from '../redux/filter/slice';
 // import { fetchPizzas } from '../redux/pizza/asyncActions';
 // import { SearchPizzaParams } from '../redux/pizza/types';
 
@@ -20,28 +20,36 @@ import { PostCardBlock } from '../components/PostCardBlock';
 import { Sort } from '../components/Sort';
 import { Skeleton } from '../components/PostCardBlock/Skeleton';
 import { Pagination } from '../components/Pagination';
-import { SearchContext } from '../App';
+import { Categories } from '../components/Categories';
+import { PostCardBlock } from '../components/PostCardBlock';
+
+
+
+
 
 const Home = () => {
 
   const [loading, isLoading] = useState(true)
   const [items, setItems] = useState([])
   const [sortList, setSortList] = useState([]);
-  const [category, setCategory] = useState(0);
-  const [sortBy, setSortBy] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [pagesCount, setPagesCount] = useState(1)
 
   const maxItmesPerPage = 6
+  
+  const categoryId  = useSelector((state) => state.filterByCategory.categoryId);
+  const sortByValue = useSelector((state) => state.sortByValue.sortBy)
+  const searcValue = useSelector((state) => state.search.searchValue)
+  const dispatch = useDispatch();
 
-  const {searchValue} = React.useContext(SearchContext)
-  
-  
+  const onChangeCategory = (id) => {
+    dispatch(setCategoryId(id))
+  }
 
   
   useEffect(() => {
     const url = new URL('https://676c71c20e299dd2ddfcd273.mockapi.io/PostCards')
-    category > 0 ? url.searchParams.append('category', category) : url.searchParams.delete('category')
+    categoryId > 0 ? url.searchParams.append('category', categoryId) : url.searchParams.delete('category')
      fetch(url, {
       method: 'GET',
       headers: {'content-type':'application/json'},
@@ -56,12 +64,12 @@ const Home = () => {
     .finally(() => {
       isLoading(false)
     })
-  },[category])
+  },[categoryId])
 
   useEffect(() => {
     const url = new URL('https://676c71c20e299dd2ddfcd273.mockapi.io/PostCards')
-    url.searchParams.append('sortBy', sortBy.sortBy);
-    url.searchParams.append('order', sortBy.order)
+    url.searchParams.append('sortBy', sortByValue.sortBy);
+    url.searchParams.append('order', sortByValue.order)
     fetch(url, {
       method: 'GET',
       headers: {'content-type':'application/json'},
@@ -75,12 +83,10 @@ const Home = () => {
     .finally(() => {
       isLoading(false)
     })
-  },[sortBy])
+  },[sortByValue])
 
   useEffect(() => {
     const url = new URL('https://676c71c20e299dd2ddfcd273.mockapi.io/sortList');
-    // url.searchParams.append('sortBy', sortBy.sortBy);
-    // url.searchParams.append('order', sortBy.order)
     fetch(url, {
       method: 'GET',
       headers: {'content-type':'application/json'},
@@ -90,9 +96,15 @@ const Home = () => {
     })
     .then((json) => { 
       setSortList(json)
-      setSortBy(json[0])
+      dispatch(setSortByValue(json[0]))
     })
-  },[])
+  },[dispatch])
+
+
+  useEffect(() => {
+    setPagesCount(Math.ceil(postcards.length / maxItmesPerPage))
+    setCurrentPage(1)
+  },[searcValue])
 
   // console.log(category)
   // useEffect(() => {
@@ -190,18 +202,22 @@ const Home = () => {
 
   
 
-  const postcards = items.filter(obj => obj.title.toLowerCase().includes(searchValue.toLowerCase())).map((obj) => <PostCardBlock key={obj.id} {...obj} />);
+  const postcards = items.filter(obj => obj.title.toLowerCase().includes(searcValue.toLowerCase())).map((obj) => <PostCardBlock key={obj.id} {...obj} />);
+  
   const postCardsPerPage = postcards.slice(maxItmesPerPage * (currentPage - 1), maxItmesPerPage * currentPage)
   const skeletons = [...new Array(maxItmesPerPage)].map((_, index) => <Skeleton key={index} />);
 
-  
-  console.log('Home render')
+  // const onChangeSerchValue = () => {
+  //   setPagesCount(postcards.length)
+  // }
+  // console.log('Home render')
+  // console.log(postcards.length)
 
   return (
     <div className="container">
       <div className="content__top">
-        <Categories category={category} onChangeCategory={(i) => setCategory(i)}/>
-        <Sort sortList={sortList} sortBy={sortBy} onChangeSortBy={(value) => setSortBy(value)}/>
+        <Categories category={categoryId} onChangeCategory={onChangeCategory}/>
+        <Sort sortList={sortList} sortBy={sortByValue} onChangeSortBy={(value) => dispatch(setSortByValue(value))}/>
       </div>
       <h2 className="content__title">All cards</h2>
       <div className="content__items">{loading ? skeletons : postCardsPerPage}</div>
