@@ -7,7 +7,7 @@ export const Skeleton = (props) => (
   <ContentLoader 
     speed={2}
     width={280}
-    height={486}
+    height={460}
     viewBox="0 0 280 486"
     backgroundColor="#ededed"
     foregroundColor="#ecebeb"

@@ -1,17 +1,23 @@
 import React from 'react';
 // import debounce from 'lodash.debounce';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSearchValue } from '../../redux/slices/searchSlice';
+import { setSearchValue } from '../../redux/slices/filterSlice';
 
 import styles from './Search.module.scss';
+import { setCurrentPage } from '../../redux/slices/paginationSlice';
 
 
 export const Search = () => {
 
-  const searchValue = useSelector((state) => state.search.searchValue)
+  const searchValue = useSelector((state) => state.filter.searchValue)
   const dispatch = useDispatch();
   // const [value, setValue] = React.useState('');
   const inputRef = React.useRef(null);
+
+  const onChangeSearchValue = (e) => {
+    dispatch(setSearchValue(e.target.value))
+    dispatch(setCurrentPage(1))
+  }
 
   const onClickClear = () => {
     dispatch(setSearchValue(''));
@@ -69,7 +75,7 @@ export const Search = () => {
       <input
         ref={inputRef}
         value={searchValue}
-        onChange={(e) =>  dispatch(setSearchValue(e.target.value))}
+        onChange={(e) =>  onChangeSearchValue(e)}
         className={styles.input}
         placeholder="Search postcards..."
       />

@@ -1,15 +1,20 @@
 import { configureStore } from "@reduxjs/toolkit";
-import filterByCategorySlice from "./slices/filterByCategorySlice";
-import  sortByValueSlice  from "./slices/sortByValueSlice";
+
 import  searchSlice  from "./slices/searchSlice";
 import addItemToCartSlice from "./slices/addItemToCartSlice";
+import  filterSlice  from "./slices/filterSlice";
+import settingsSlice from "./slices/settingsSlice";
+import paginationSlice from "./slices/paginationSlice";
+import contentSlice  from "./slices/contentSlice";
 
 
 export const store = configureStore({
   reducer: {
-    filterByCategory: filterByCategorySlice,
-    sortByValue: sortByValueSlice,
+    settings: settingsSlice,
+    filter: filterSlice,
+    content: contentSlice,
     search: searchSlice,
-    addItemToCart: addItemToCartSlice
+    addItemToCart: addItemToCartSlice,
+    pagination: paginationSlice
   },
 });

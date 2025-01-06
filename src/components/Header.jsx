@@ -30,7 +30,6 @@ export const Header = () => {
   //   }
   //   isMounted.current = true;
   // }, [items]);
-// console.log('Header render')
   return (
     <div className="header">
       <div className="container">

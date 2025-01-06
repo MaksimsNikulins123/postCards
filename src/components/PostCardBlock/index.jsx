@@ -28,11 +28,14 @@ export const PostCardBlock = ({
   types,
 }) => {
   const [count, setCount] = useState(0)
-  const dispatch = useDispatch();
-  const addedCount = useSelector((state) => state.addItemToCart.count);
+  
   const [activeType, setActiveType] = React.useState(0);
   const [activeSize, setActiveSize] = React.useState(0);
 
+ 
+  const addedCount = useSelector((state) => state.addItemToCart.count);
+  
+  const dispatch = useDispatch();
   // const {itemAddedCount, setItemAddedCount} = React.useContext(ItemAddedCountContext)
   
 const addItemToCart = (postCardId) => {

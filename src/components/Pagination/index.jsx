@@ -1,17 +1,27 @@
 import React from "react";
 // import ReactPaginate from 'react-paginate';
+import { useDispatch, useSelector } from "react-redux";
 
 import styles from "./Pagination.module.scss";
+
+import { setCurrentPage } from "../../redux/slices/paginationSlice";
+import { Link } from "react-router";
 
 // type PaginationProps = {
 //   currentPage: number;
 //   onChangePage: (page: number) => void;
 // };
 
-export const Pagination = ({ pagesCount, currentPage, setCurrentPage }) => {
+export const Pagination = () => {
+
+  const pagesCount = useSelector((state) => state.pagination.pagesCount)
+  const currentPage = useSelector((state) => state.pagination.currentPage)
+  const dispatch = useDispatch()
+
+
   const pages = [...new Array(pagesCount)].map((_, index) => (
     <li key={index}>
-      <a className={currentPage === (index + 1) ? 'active' : ''} onClick={() => setCurrentPage(index + 1)}>{index + 1}</a>
+      <Link className={currentPage === (index + 1) ? 'active' : ''} onClick={() => dispatch(setCurrentPage(index + 1))}>{index + 1}</Link>
     </li>
   ));
   // console.log(pages)
@@ -22,15 +32,3 @@ export const Pagination = ({ pagesCount, currentPage, setCurrentPage }) => {
     </div>
   );
 };
-
-// <ReactPaginate
-//   className={styles.root}
-//   breakLabel="..."
-//   nextLabel=">"
-//   previousLabel="<"
-//   onPageChange={(event) => onChangePage(event.selected + 1)}
-//   pageRangeDisplayed={4}
-//   pageCount={3}
-//   forcePage={currentPage - 1}
-// />
-// );

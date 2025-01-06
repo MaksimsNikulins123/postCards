@@ -1,54 +1,53 @@
-import React, { useState } from 'react';
-// import { useDispatch } from 'react-redux';
-// import { setSort } from '../redux/filter/slice';
-// import { Sort as SortType, SortPropertyEnum } from '../redux/filter/types';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCategoryId, setSortByValue, setSortList } from '../redux/slices/filterSlice';
+import { setCurrentPage } from '../redux/slices/paginationSlice';
 
-// type SortItem = {
-//   name: string;
-//   sortProperty: SortPropertyEnum;
-// };
 
-// type PopupClick = MouseEvent & {
-//   path: Node[];
-// };
 
-// type SortPopupProps = {
-//   value: SortType;
-// };
-// import sortList from '../assets/sortList.json';
-
-export const Sort = ({sortList, sortBy, onChangeSortBy}) => {
-  // const dispatch = useDispatch();
+export const Sort = () => {
+  // console.log(sortList)
+  const dispatch = useDispatch();
   // const sortRef = React.useRef<HTMLDivElement>(null);
  
   const [open, setOpen] = useState(false);
-  // const [selected, setSelected] = useState(0);
-  // const [sortBy, setSortBy] = useState('');
+  const {sortList, sortByValue} = useSelector((state) => state.filter)
+  // const sortList = useSelector((state) => state.filter.sortList)
+  // const sortBy = useSelector((state) => state.filter.sortBy)
+
+
+    useEffect(() => {
+
+      // dispatch(setIsLoading(true))
+  
+      const url = new URL("https://676c71c20e299dd2ddfcd273.mockapi.io/sortList");
+      fetch(url, {
+        method: "GET",
+        headers: { "content-type": "application/json" },
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((json) => {
+          dispatch(setSortList(json))
+          dispatch(setSortByValue(json[0]));
+        })
+        .finally(() => {
+          // dispatch(setIsLoading(false));
+        });
+    }, [dispatch]);
 
    
   
    
 
-  const onClickListItem = (obj, i) => {
-    onChangeSortBy(obj)
-    // setSelected(i)
-    // dispatch(setSort(obj));
+  const onClickListItem = (obj) => {
+    dispatch(setSortByValue(obj))
     setOpen(false);
+    dispatch(setCategoryId(0))
+    dispatch(setCurrentPage(1))
   };
 
-  // React.useEffect(() => {
-  //   const handleClickOutside = (event: MouseEvent) => {
-  //     const _event = event as PopupClick;
-
-  //     if (sortRef.current && !_event.path.includes(sortRef.current)) {
-  //       setOpen(false);
-  //     }
-  //   };
-
-  //   document.body.addEventListener('click', handleClickOutside);
-
-  //   return () => document.body.removeEventListener('click', handleClickOutside);
-  // }, []);
 
   return (
     <div  className="sort">
@@ -65,7 +64,7 @@ export const Sort = ({sortList, sortBy, onChangeSortBy}) => {
           />
         </svg>
         <b>Sort by:</b>
-        <span onClick={() => setOpen(!open)}>{sortBy.name}</span>
+        <span onClick={() => setOpen(!open)}>{sortByValue.name}</span>
       </div>
       {open && (
         <div className="sort__popup">
@@ -73,8 +72,8 @@ export const Sort = ({sortList, sortBy, onChangeSortBy}) => {
             {sortList.map((obj, i) => (
               <li
                 key={i}
-                onClick={() => onClickListItem(obj, i)}
-                className={sortBy.name === obj.name ? 'active' : ''}
+                onClick={() => onClickListItem(obj)}
+                className={sortByValue.name === obj.name ? 'active' : ''}
                 >
                 {obj.name}
               </li>
