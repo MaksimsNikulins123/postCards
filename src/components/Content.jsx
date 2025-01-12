@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
 
-// import qs from 'qs';
+import qs from 'qs';
 import { useDispatch, useSelector } from "react-redux";
-import { setIsLoading } from "../redux/slices/filterSlice";
+import { setCategoryId, setIsLoading } from "../redux/slices/filterSlice";
 import { setItems } from "../redux/slices/contentSlice";
 import { setPagesCount } from "../redux/slices/paginationSlice";
 
 import { Skeleton } from "./Skeleton";
 import { PostCardBlock } from "./PostCardBlock";
+// import { useNavigate } from "react-router";
 
 
 
@@ -27,15 +28,36 @@ export const Content = () => {
   // const [skeletonsCount, setSkeletonsCount] = useState(maxItemsPerPage)
 
   const dispatch = useDispatch();
+  // const navigate = useNavigate();
+  // const isMounted = useRef(false);
+
 
   // const onChangeCategory = (id) => {
   //   dispatch(setCategoryId(id));
   // };
+  // useEffect(() => {
+  //   if (isMounted.current) {
+  //     const params = {
+  //       categoryId: categoryId,
+  //       // sortByValue: sortByValue,
+  //       // currentPage: currentPage
+  //     };
+  
+  //     const queryString = qs.stringify(params, { skipNulls: true });
+  
+  //     navigate(`/?${queryString}`);
+  //   }
+  //   // isMounted.current = true
+  // }, [categoryId, navigate])
 
   useEffect(() => {
     // console.log("Get items by category")
 
     dispatch(setIsLoading(true))
+
+    const params = qs.parse(window.location.search.substring(1))
+
+    dispatch(setCategoryId(Number(params.categoryId)))
 
     const url = new URL(
       "https://676c71c20e299dd2ddfcd273.mockapi.io/PostCards"
@@ -59,6 +81,8 @@ export const Content = () => {
       })
       .finally(() => {
         dispatch(setIsLoading(false))
+        // isMounted.current = true
+
       });
   }, [categoryId, maxItemsPerPage,dispatch]);
 

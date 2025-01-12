@@ -1,19 +1,19 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { addItem, minusItem, removeItem } from '../redux/cart/slice';
-import { CartItem as CartItemType } from '../redux/cart/types';
+// import { addItem, minusItem, removeItem } from '../redux/cart/slice';
+// import { CartItem as CartItemType } from '../redux/cart/types';
 
-type CartItemProps = {
-  id: string;
-  title: string;
-  type: string;
-  size: number;
-  price: number;
-  count: number;
-  imageUrl: string;
-};
+// type CartItemProps = {
+//   id: string;
+//   title: string;
+//   type: string;
+//   size: number;
+//   price: number;
+//   count: number;
+//   imageUrl: string;
+// };
 
-export const CartItem: React.FC<CartItemProps> = ({
+export const CartItem = ({
   id,
   title,
   type,
@@ -25,20 +25,20 @@ export const CartItem: React.FC<CartItemProps> = ({
   const dispatch = useDispatch();
 
   const onClickPlus = () => {
-    dispatch(
-      addItem({
-        id,
-      } as CartItemType),
-    );
+    // dispatch(
+    //   addItem({
+    //     id,
+    //   }),
+    // );
   };
 
   const onClickMinus = () => {
-    dispatch(minusItem(id));
+    // dispatch(minusItem(id));
   };
 
   const onClickRemove = () => {
     if (window.confirm('Ты действительно хочешь удалить товар?')) {
-      dispatch(removeItem(id));
+      // dispatch(removeItem(id));
     }
   };
 

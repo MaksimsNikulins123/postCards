@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCategoryId, setSortByValue, setSortList } from '../redux/slices/filterSlice';
 import { setCurrentPage } from '../redux/slices/paginationSlice';
@@ -8,7 +8,7 @@ import { setCurrentPage } from '../redux/slices/paginationSlice';
 export const Sort = () => {
   // console.log(sortList)
   const dispatch = useDispatch();
-  // const sortRef = React.useRef<HTMLDivElement>(null);
+  const sortRef = useRef();
  
   const [open, setOpen] = useState(false);
   const {sortList, sortByValue} = useSelector((state) => state.filter)
@@ -38,7 +38,17 @@ export const Sort = () => {
     }, [dispatch]);
 
    
+  const handleOnSortClick = (event) => {
+      // console.log(event)
+      if(event.target !== sortRef.current) {
+        setOpen(false)
+      }
   
+  }
+  useEffect(() => {
+    document.body.addEventListener('click', handleOnSortClick)
+    return () => document.body.removeEventListener('click', handleOnSortClick)
+  }, [])
    
 
   const onClickListItem = (obj) => {
@@ -46,12 +56,13 @@ export const Sort = () => {
     setOpen(false);
     dispatch(setCategoryId(0))
     dispatch(setCurrentPage(1))
+    
   };
 
 
   return (
     <div  className="sort">
-      <div className={`sort__label ${open ? 'active' : ''}`}>
+      <div  className={`sort__label ${open ? 'active' : ''}`} >
         <svg
           width="10"
           height="6"
@@ -64,7 +75,7 @@ export const Sort = () => {
           />
         </svg>
         <b>Sort by:</b>
-        <span onClick={() => setOpen(!open)}>{sortByValue.name}</span>
+        <span ref={sortRef} onClick={() => setOpen(!open)}>{sortByValue.name}</span>
       </div>
       {open && (
         <div className="sort__popup">

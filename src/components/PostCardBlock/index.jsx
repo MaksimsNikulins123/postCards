@@ -19,27 +19,26 @@ const typeNames = ['color', 'black & white'];
 //   rating: number;
 // };
 
-export const PostCardBlock = ({
-  id,
-  title,
-  price,
-  imageUrl,
-  sizes,
-  types,
-}) => {
+export const PostCardBlock = ({id, title, price, imageUrl, sizes, types}) => {
+
   const [count, setCount] = useState(0)
-  
   const [activeType, setActiveType] = React.useState(0);
   const [activeSize, setActiveSize] = React.useState(0);
 
  
   const addedCount = useSelector((state) => state.addItemToCart.count);
+  // const items = useSelector((state) => state.content.items)
   
   const dispatch = useDispatch();
   // const {itemAddedCount, setItemAddedCount} = React.useContext(ItemAddedCountContext)
   
-const addItemToCart = (postCardId) => {
-  // console.log(postCardId)
+const addItemToCart = () => {
+  // let postCardtoCart = {};
+  // postCardtoCart = items.filter((item) => item.id === postCardId)[0]
+  // console.log(postCardtoCart)
+  console.log({id, activeType, activeSize, price})
+  // console.log(items)
+  // console.log(items.filter((item) => item.id === postCardId))
   setCount(count + 1)
   dispatch(setAddedItemsToCartCount(addedCount + 1))
 }
@@ -91,7 +90,7 @@ const addItemToCart = (postCardId) => {
         </div>
         <div className="postCard-block__bottom">
           <div className="postCard-block__price">from {price}$</div>
-          <button  className="button button--outline button--add" onClick={() => addItemToCart(id)}>
+          <button  className="button button--outline button--add" onClick={() => addItemToCart()}>
             <svg
               width="12"
               height="12"
@@ -104,8 +103,8 @@ const addItemToCart = (postCardId) => {
               />
             </svg>
             <span >Add to cart</span>
-            <i>{count}</i>
-            {/* {addedCount > 0 && <i>{addedCount}</i>} */}
+            {/* <i>{count}</i> */}
+            {count > 0 && <i>{count}</i>}
           </button>
         </div>
       </div>
