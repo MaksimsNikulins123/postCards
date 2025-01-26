@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 // import { addItem, minusItem, removeItem } from '../redux/cart/slice';
 // import { CartItem as CartItemType } from '../redux/cart/types';
 
@@ -50,7 +50,7 @@ export const CartItem = ({
       <div className="cart__item-info">
         <h3>{title}</h3>
         <p>
-          {type}, {size} см.
+          {type}, {size}
         </p>
       </div>
       <div className="cart__item-count">

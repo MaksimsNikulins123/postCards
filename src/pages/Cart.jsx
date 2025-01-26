@@ -9,6 +9,7 @@ import { CartItem} from '../components/CartItem';
 // import { clearItems } from '../redux/cart/slice';
 
 const Cart = () => {
+  
   const items = useSelector((state) => state.cart.items)
   // const dispatch = useDispatch();
   // const { totalPrice, items } = useSelector(selectCart);

@@ -10,8 +10,9 @@ import { Search } from "./Search";
 // import { selectCart } from '../redux/cart/selectors';
 
 export const Header = () => {
-  
+
   const addedItems = useSelector((state) => state.cart.items.length)
+  const totalPrice = useSelector((state) => state.cart.totalPrice)
   
 
   // const [itemAdded, setItemAdded] = useState('')
@@ -48,7 +49,7 @@ export const Header = () => {
         <div className="header__cart">
           {/* {location.pathname !== '/cart' && ( */}
           <Link to="/cart" className="button button--cart">
-            <span>100 $</span>
+            <span>{totalPrice} $</span>
             <div className="button__delimiter"></div>
             <svg
               width="18"

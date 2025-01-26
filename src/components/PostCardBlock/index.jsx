@@ -34,7 +34,10 @@ export const PostCardBlock = ({ id, title, price, imageUrl, sizes, types }) => {
 
   // },[count])
 
-  const addItemToCart = () => {
+  const addItemToCart = (t) => {
+
+    console.log(sizes, types)
+    console.log(activeSize, activeType)
     
     setCount(count + 1);
 
@@ -42,7 +45,7 @@ export const PostCardBlock = ({ id, title, price, imageUrl, sizes, types }) => {
     
     // console.log(items.filter((item) => item.id === id))
     
-      dispatch(addItem({ id, title, type: activeType, size: activeSize, price, count: postCardsCountToCart, imageUrl}));
+      dispatch(addItem({ id, title, type: types[activeType], size: sizes[activeSize], price, count: postCardsCountToCart, imageUrl}));
     
 
     
@@ -73,7 +76,7 @@ export const PostCardBlock = ({ id, title, price, imageUrl, sizes, types }) => {
           <ul>
             {sizes.map((size, i) => (
               <li
-                key={size}
+                key={i}
                 onClick={() => setActiveSize(i)}
                 className={activeSize === i ? "active" : ""}
               >
