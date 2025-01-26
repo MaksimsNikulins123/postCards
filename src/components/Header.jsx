@@ -10,8 +10,9 @@ import { Search } from "./Search";
 // import { selectCart } from '../redux/cart/selectors';
 
 export const Header = () => {
-
-  const addedItemToCart = useSelector((state) => state.addItemToCart.count)
+  
+  const addedItems = useSelector((state) => state.cart.items.length)
+  
 
   // const [itemAdded, setItemAdded] = useState('')
 
@@ -78,7 +79,7 @@ export const Header = () => {
                 strokeLinejoin="round"
               />
             </svg>
-            <span>{addedItemToCart > 0 ? addedItemToCart : ''} </span>
+            <span>{addedItems > 0 ? addedItems : ''} </span>
             {/* <span>{itemAddedCount} </span> */}
           </Link>
           {/* )} */}

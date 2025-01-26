@@ -2,6 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   maxItemsPerPage: 4,
+  // postCardColorTypeNames: ["color", "black & white"],
+  // postCardSizes: []
 };
 
 export const settingsSlice = createSlice({

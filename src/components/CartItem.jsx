@@ -22,7 +22,7 @@ export const CartItem = ({
   count,
   imageUrl,
 }) => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const onClickPlus = () => {
     // dispatch(
@@ -37,7 +37,7 @@ export const CartItem = ({
   };
 
   const onClickRemove = () => {
-    if (window.confirm('Ты действительно хочешь удалить товар?')) {
+    if (window.confirm('Are you really want to delete item?')) {
       // dispatch(removeItem(id));
     }
   };

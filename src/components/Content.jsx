@@ -84,7 +84,7 @@ export const Content = () => {
         // isMounted.current = true
 
       });
-  }, [categoryId, maxItemsPerPage,dispatch]);
+  }, [categoryId, maxItemsPerPage, dispatch]);
 
   useEffect(() => {
     // console.log("Get items by sort")
