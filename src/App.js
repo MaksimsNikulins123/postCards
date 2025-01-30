@@ -13,7 +13,7 @@ import Cart from "./pages/Cart";
 // export const ItemAddedCountContext = React.createContext();
 
 function App() {
-  // console.log("App render");
+  console.log("App render");
 
  
   // const [itemAddedCount, setItemAddedCount] = useState(0);
