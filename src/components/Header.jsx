@@ -11,7 +11,7 @@ import { Search } from "./Search";
 
 export const Header = () => {
 
-  const addedItems = useSelector((state) => state.cart.items.length)
+  const addedItems = useSelector((state) => state.cart.totalCount)
   const totalPrice = useSelector((state) => state.cart.totalPrice)
   
 

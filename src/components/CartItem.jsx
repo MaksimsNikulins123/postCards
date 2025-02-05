@@ -1,4 +1,6 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { addItem, countMinus, countPlus, removeItem } from '../redux/slices/cartSlice';
 // import { useDispatch } from 'react-redux';
 // import { addItem, minusItem, removeItem } from '../redux/cart/slice';
 // import { CartItem as CartItemType } from '../redux/cart/types';
@@ -22,23 +24,49 @@ export const CartItem = ({
   count,
   imageUrl,
 }) => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const onClickPlus = () => {
-    // dispatch(
-    //   addItem({
-    //     id,
-    //   }),
-    // );
+    // console.log(id)
+    dispatch(
+      countPlus({
+        id,
+        title,
+        type,
+        size,
+        price,
+        count,
+        imageUrl,
+      }),
+    );
   };
 
   const onClickMinus = () => {
-    // dispatch(minusItem(id));
+    // console.log(id)
+    dispatch(
+      countMinus({
+        id,
+        title,
+        type,
+        size,
+        price,
+        count,
+        imageUrl,
+      }),
+    );
   };
 
   const onClickRemove = () => {
     if (window.confirm('Are you really want to delete item?')) {
-      // dispatch(removeItem(id));
+      dispatch(removeItem({
+        id,
+        title,
+        type,
+        size,
+        price,
+        count,
+        imageUrl
+    }));
     }
   };
 
@@ -92,7 +120,7 @@ export const CartItem = ({
         </button>
       </div>
       <div className="cart__item-price">
-        <b>{price * count} ₽</b>
+        <b>{price * count} $</b>
       </div>
       <div className="cart__item-remove">
         <div onClick={onClickRemove} className="button button--outline button--circle">

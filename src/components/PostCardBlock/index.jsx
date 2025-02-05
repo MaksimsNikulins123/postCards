@@ -36,8 +36,8 @@ export const PostCardBlock = ({ id, title, price, imageUrl, sizes, types }) => {
 
   const addItemToCart = (t) => {
 
-    console.log(sizes, types)
-    console.log(activeSize, activeType)
+    // console.log(sizes, types)
+    // console.log(activeSize, activeType)
     
     setCount(count + 1);
 

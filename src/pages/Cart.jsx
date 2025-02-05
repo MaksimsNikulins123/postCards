@@ -1,30 +1,34 @@
 import React from 'react';
 
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { CartItem} from '../components/CartItem';
+import { CartEmpty } from '../components/CartEmpty';
+import { clearItems } from '../redux/slices/cartSlice';
 
 // import { selectCart } from '../redux/cart/selectors';
 // import { clearItems } from '../redux/cart/slice';
 
 const Cart = () => {
-  
+
   const items = useSelector((state) => state.cart.items)
-  // const dispatch = useDispatch();
+  const totalCount = useSelector((state) => state.cart.totalCount)
+  const totalPrice = useSelector((state) => state.cart.totalPrice)
+  const dispatch = useDispatch();
   // const { totalPrice, items } = useSelector(selectCart);
 
   // const totalCount = items.reduce((sum, item) => sum + item.count, 0);
 
-  // const onClickClear = () => {
-  //   if (window.confirm('Очистить корзину?')) {
-  //     dispatch(clearItems());
-  //   }
-  // };
+  const onClickClear = () => {
+    if (window.confirm('Do you want to cleanup cart?')) {
+      dispatch(clearItems());
+    }
+  };
 
-  // if (!totalPrice) {
-  //   return <CartEmpty />;
-  // }
+  if (!totalPrice) {
+    return <CartEmpty />;
+  }
 
   return (
     <div className="container container--cart">
@@ -56,7 +60,7 @@ const Cart = () => {
                 strokeLinecap="round"
                 strokeLinejoin="round"></path>
             </svg>
-            Корзина
+            Cart
           </h2>
           <div  className="cart__clear">
             <svg
@@ -91,23 +95,23 @@ const Cart = () => {
                 strokeLinejoin="round"></path>
             </svg>
 
-            <span>Очистить корзину</span>
+            <span onClick={onClickClear}>Cleanup cart</span>
           </div>
         </div>
         <div className="content__items">
-          {items.map((item) => (
-            <CartItem key={item.id} {...item} />
+          {items.map((item, i) => (
+            <CartItem key={i} {...item} />
           ))}
         </div>
         <div className="cart__bottom">
           <div className="cart__bottom-details">
             <span>
               {' '}
-              Всего пицц: <b>totalCount шт.</b>{' '}
+              Total postcards: <b>{totalCount}</b>{' '}
             </span>
             <span>
               {' '}
-              Сумма заказа: <b>totalPrice ₽</b>{' '}
+              Order total price: <b>{totalPrice} $</b>{' '}
             </span>
           </div>
           <div className="cart__bottom-buttons">
@@ -126,10 +130,10 @@ const Cart = () => {
                   strokeLinejoin="round"></path>
               </svg>
 
-              <span>Вернуться назад</span>
+              <span>Back</span>
             </Link>
             <div className="button pay-btn">
-              <span>Оплатить сейчас</span>
+              <span>Pay now</span>
             </div>
           </div>
         </div>
